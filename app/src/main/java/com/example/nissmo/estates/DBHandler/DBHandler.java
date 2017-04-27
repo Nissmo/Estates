@@ -70,7 +70,7 @@ public class DBHandler extends SQLiteOpenHelper{
 
         String selectQuery = "SELECT * FROM " + TABLE_ESTATES;
 
-        SQLiteDatabase db=this.getWritableDatabase();
+        SQLiteDatabase db=this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
         if(cursor.moveToFirst())
         {
@@ -88,14 +88,15 @@ public class DBHandler extends SQLiteOpenHelper{
         }
         return estateList;
     }
-    public List<Estate> getTypeEstates(String type)
+    public List<Estate> getTypeEstates(String selecting, String[] args)
     {
         List<Estate> estateList = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM " + TABLE_ESTATES + " WHERE " + KEY_TYPE + " LIKE '" + type + "'";
-
+        String[] columnsToReturn = { "*"};
+        String selectQuery = "SELECT * FROM " + TABLE_ESTATES + " WHERE " + selecting;
+        String selection = selecting;
+        String[] selectionArgs = args;
         SQLiteDatabase db=this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        Cursor cursor = db.query(TABLE_ESTATES,columnsToReturn,selection,null,null,null,null);
         if(cursor.moveToFirst())
         {
             do {
@@ -112,5 +113,4 @@ public class DBHandler extends SQLiteOpenHelper{
         }
         return estateList;
     }
-
 }
