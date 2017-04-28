@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -27,6 +28,15 @@ public class ShowActivity extends AppCompatActivity implements AdapterView.OnIte
     Button button;
     private DBHandler db;
     EstateListAdapter listadapter;
+
+    EditText minPrice;
+    EditText maxPrice;
+    EditText minArea;
+    EditText maxArea;
+    EditText minRoom;
+    EditText maxRoom;
+    EditText minFloors;
+    EditText maxFloors;
 
     Spinner spinner;
     Spinner spinner2;
@@ -52,6 +62,15 @@ public class ShowActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
 
+        minPrice = (EditText) findViewById(R.id.editText);
+        maxPrice = (EditText) findViewById(R.id.editText2);
+        minArea = (EditText) findViewById(R.id.editText3);
+        maxArea = (EditText) findViewById(R.id.editText4);
+        minRoom = (EditText) findViewById(R.id.editText5);
+        maxRoom = (EditText) findViewById(R.id.editText6);
+        minFloors = (EditText) findViewById(R.id.editText7);
+        maxFloors = (EditText) findViewById(R.id.editText8);
+
         button = (Button) findViewById(R.id.bt_search);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +78,14 @@ public class ShowActivity extends AppCompatActivity implements AdapterView.OnIte
                 int counter = 0;
                 String region = spinner2.getSelectedItem().toString();
                 String type = spinner.getSelectedItem().toString();
+                String sminPrice = minPrice.getText().toString();
+                String smaxPrice = maxPrice.getText().toString();
+                String sminArea = minArea.getText().toString();
+                String smaxArea = maxArea.getText().toString();
+                String sminRoom = minRoom.getText().toString();
+                String smaxRoom = maxRoom.getText().toString();
+                String sminFloors = minFloors.getText().toString();
+                String smaxFloors = maxFloors.getText().toString();
                 String selection = "";
                 String[] arguments = new String[5];
                 if(!(region==""))
@@ -67,8 +94,6 @@ public class ShowActivity extends AppCompatActivity implements AdapterView.OnIte
                         selection += "region LIKE '" + region+"'";
                     else
                         selection += " AND region LIKE '" + region+"'";
-                    arguments[counter]= region;
-                    counter++;
                 }
                 if(!(type==""))
                 {
@@ -76,8 +101,62 @@ public class ShowActivity extends AppCompatActivity implements AdapterView.OnIte
                         selection += "type LIKE '" + type+"'";
                     else
                         selection += " AND type LIKE '" + type+"'";
-                    arguments[counter]= type;
-                    counter++;
+                }
+                if(!(sminPrice.isEmpty()))
+                {
+                    if(selection=="")
+                        selection += "price >= '" + sminPrice+"'";
+                    else
+                        selection += " AND price >= '" + sminPrice+"'";
+                }
+                if(!(smaxPrice.isEmpty()))
+                {
+                    if(selection=="")
+                        selection += "price <= '" + smaxPrice+"'";
+                    else
+                        selection += " AND price <= '" + smaxPrice+"'";
+                }
+                if(!(sminArea.isEmpty()))
+                {
+                    if(selection=="")
+                        selection += "area >= '" + sminArea+"'";
+                    else
+                        selection += " AND area >= '" + sminArea+"'";
+                }
+                if(!(smaxArea.isEmpty()))
+                {
+                    if(selection=="")
+                        selection += "area <= '" + smaxArea+"'";
+                    else
+                        selection += " AND area <= '" + smaxArea+"'";
+                }
+                if(!(sminFloors.isEmpty()))
+                {
+                    if(selection=="")
+                        selection += "floors >= '" + sminFloors+"'";
+                    else
+                        selection += " AND floors >= '" + sminFloors+"'";
+                }
+                if(!(smaxFloors.isEmpty()))
+                {
+                    if(selection=="")
+                        selection += "floors <= '" + smaxFloors+"'";
+                    else
+                        selection += " AND floors <= '" + smaxFloors+"'";
+                }
+                if(!(sminRoom.isEmpty()))
+                {
+                    if(selection=="")
+                        selection += "rooms >= '" + sminRoom+"'";
+                    else
+                        selection += " AND rooms >= '" + sminRoom+"'";
+                }
+                if(!(smaxRoom.isEmpty()))
+                {
+                    if(selection=="")
+                        selection += "rooms <= '" + smaxRoom+"'";
+                    else
+                        selection += " AND rooms <= '" + smaxRoom+"'";
                 }
                 Log.e(TAG, selection);
                 estateList = db.getTypeEstates(selection,arguments);
