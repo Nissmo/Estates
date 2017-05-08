@@ -41,7 +41,7 @@ public class ShowActivity extends AppCompatActivity implements AdapterView.OnIte
     Spinner spinner;
     Spinner spinner2;
     private static final String[]sale = {"","продажба", "наем"};
-    private static final String[]region = {"","Владиславово", "Възраждане","Левски","Чайка"};
+    private static final String[]region = {"",,"Аспарухово", "Бриз","Владиславово", "Възраждане", ,"Младост","Левски","Чайка"};
 
     protected void onCreate(Bundle savedInstanceState) {
 
