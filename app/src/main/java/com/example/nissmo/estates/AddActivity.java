@@ -24,7 +24,7 @@ public class AddActivity extends AppCompatActivity {
     Spinner spinner;
     Spinner spinner2;
     private static final String[]sale = {"продажба", "наем"};
-    private static final String[]region = {"Владиславово", "Възраждане","Левски","Чайка"};
+    private static final String[]region = {"",,"Аспарухово", "Бриз","Владиславово", "Възраждане", ,"Младост","Левски","Чайка"};
 
     Button add_button;
 
